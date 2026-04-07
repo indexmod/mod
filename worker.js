@@ -1,9 +1,12 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    const path = url.pathname;
 
-    // 📄 GET PAGE
-    if (request.method === "GET" && url.pathname === "/") {
+    // ---------------------------
+    // INDEX PAGE
+    // ---------------------------
+    if (path === "/" || path === "/home") {
       const html = await env.ASSETS.get("index.html");
 
       return new Response(html, {
@@ -11,8 +14,10 @@ export default {
       });
     }
 
-    // 🎨 CSS
-    if (url.pathname === "/style.css") {
+    // ---------------------------
+    // CSS (ВАЖНО — ЭТО БЫЛА ПРОБЛЕМА)
+    // ---------------------------
+    if (path === "/style.css") {
       const css = await env.ASSETS.get("style.css");
 
       return new Response(css, {
@@ -20,18 +25,28 @@ export default {
       });
     }
 
-    // 🧠 GET STATE (ОДИН ОБЩИЙ ДОКУМЕНТ)
-    if (request.method === "GET" && url.pathname === "/state") {
-      const data = await env.DOC.get("doc") || "";
-      return new Response(data);
+    // ---------------------------
+    // GET PAGE
+    // ---------------------------
+    if (path.startsWith("/api/page/") && request.method === "GET") {
+      const key = path.replace("/api/page/", "");
+      const data = await env.DOC.get(key);
+
+      return new Response(data || "");
     }
 
-    // ✍️ SAVE STATE (ПЕРЕЗАПИСЬ ВСЕГО ДОКУМЕНТА)
-    if (request.method === "POST" && url.pathname === "/state") {
-      const text = await request.text();
-      await env.DOC.put("doc", text);
+    // ---------------------------
+    // SAVE PAGE
+    // ---------------------------
+    if (path.startsWith("/api/page/") && request.method === "POST") {
+      const key = path.replace("/api/page/", "");
+      const body = await request.text();
 
-      return new Response("ok");
+      await env.DOC.put(key, body);
+
+      return new Response(JSON.stringify({ ok: true }), {
+        headers: { "Content-Type": "application/json" }
+      });
     }
 
     return new Response("not found", { status: 404 });

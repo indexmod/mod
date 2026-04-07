@@ -1,47 +1,58 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>MOD DOCUMENT</title>
+<meta charset="UTF-8">
+<title>IndexMod Live</title>
 
 <link rel="stylesheet" href="/style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <body>
 
-<div id="doc" contenteditable="true" spellcheck="false"></div>
+<img src="/logo.png" class="logo">
 
-<div id="hint">Напиши сообщение...</div>
+<div class="main">
+  <div id="editor" contenteditable="true" class="editor"></div>
+</div>
+
+<div id="status"></div>
 
 <script>
-const doc = document.getElementById("doc");
+let path = "home";
 
-let timer = null;
+const editor = document.getElementById("editor");
+const status = document.getElementById("status");
 
-// загрузка состояния
+// LOAD
 async function load() {
-  const res = await fetch("/state");
-  doc.innerText = await res.text();
+  const res = await fetch("/api/page/" + path);
+  const text = await res.text();
+
+  editor.innerHTML = text || "<h1>Start writing...</h1>";
 }
-
-// отправка состояния
-async function save() {
-  await fetch("/state", {
-    method: "POST",
-    body: doc.innerText
-  });
-}
-
-// debounce (чтобы не спамить запросами)
-doc.addEventListener("input", () => {
-  clearTimeout(timer);
-  timer = setTimeout(save, 300);
-});
-
-// автообновление от других пользователей
-setInterval(load, 1200);
 
 load();
+
+// SAVE (debounced)
+let t;
+editor.addEventListener("input", () => {
+  clearTimeout(t);
+
+  t = setTimeout(async () => {
+    await fetch("/api/page/" + path, {
+      method: "POST",
+      body: editor.innerHTML
+    });
+
+    status.innerText = "saved";
+    setTimeout(() => status.innerText = "", 500);
+  }, 300);
+});
+
+// LIVE SYNC
+setInterval(load, 1200);
 </script>
 
 </body>
