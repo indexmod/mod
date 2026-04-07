@@ -2,45 +2,45 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
-<title>MOD CHAT</title>
+<title>MOD DOCUMENT</title>
 
 <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
 
-<div id="chat"></div>
+<div id="doc" contenteditable="true" spellcheck="false"></div>
 
-<div id="input">
-  <input id="text" placeholder="Привет... напиши сообщение" autofocus />
-</div>
+<div id="hint">Напиши сообщение...</div>
 
 <script>
-const chat = document.getElementById("chat");
-const input = document.getElementById("text");
+const doc = document.getElementById("doc");
 
+let timer = null;
+
+// загрузка состояния
 async function load() {
-  const res = await fetch("/messages");
-  chat.textContent = await res.text();
-  chat.scrollTop = chat.scrollHeight;
+  const res = await fetch("/state");
+  doc.innerText = await res.text();
 }
 
-async function send(msg) {
-  await fetch("/send", {
+// отправка состояния
+async function save() {
+  await fetch("/state", {
     method: "POST",
-    body: msg
+    body: doc.innerText
   });
-  input.value = "";
-  load();
 }
 
-input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    if (input.value.trim()) send(input.value);
-  }
+// debounce (чтобы не спамить запросами)
+doc.addEventListener("input", () => {
+  clearTimeout(timer);
+  timer = setTimeout(save, 300);
 });
 
+// автообновление от других пользователей
 setInterval(load, 1200);
+
 load();
 </script>
 

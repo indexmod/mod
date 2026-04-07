@@ -2,8 +2,8 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // 🔥 GET CHAT PAGE
-    if (url.pathname === "/") {
+    // 📄 GET PAGE
+    if (request.method === "GET" && url.pathname === "/") {
       const html = await env.ASSETS.get("index.html");
 
       return new Response(html, {
@@ -11,7 +11,7 @@ export default {
       });
     }
 
-    // 🎨 CSS FILE
+    // 🎨 CSS
     if (url.pathname === "/style.css") {
       const css = await env.ASSETS.get("style.css");
 
@@ -20,19 +20,16 @@ export default {
       });
     }
 
-    // 📜 GET MESSAGES
-    if (url.pathname === "/messages") {
-      return new Response(await env.CHAT.get("log") || "", {
-        headers: { "Content-Type": "text/plain; charset=utf-8" }
-      });
+    // 🧠 GET STATE (ОДИН ОБЩИЙ ДОКУМЕНТ)
+    if (request.method === "GET" && url.pathname === "/state") {
+      const data = await env.DOC.get("doc") || "";
+      return new Response(data);
     }
 
-    // ✍️ SEND MESSAGE
-    if (url.pathname === "/send") {
+    // ✍️ SAVE STATE (ПЕРЕЗАПИСЬ ВСЕГО ДОКУМЕНТА)
+    if (request.method === "POST" && url.pathname === "/state") {
       const text = await request.text();
-      const old = await env.CHAT.get("log") || "";
-
-      await env.CHAT.put("log", old + text + "\n");
+      await env.DOC.put("doc", text);
 
       return new Response("ok");
     }

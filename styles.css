@@ -3,30 +3,28 @@ body {
   background: #0b0014;
   color: #c77dff;
   font-family: monospace;
-  font-size: 25px;
+  font-size: 22px;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
+  overflow: hidden;
 }
 
-#chat {
-  flex: 1;
-  padding: 20px;
+#doc {
+  padding: 40px;
+  outline: none;
   white-space: pre-wrap;
+  height: 100vh;
   overflow-y: auto;
 }
 
-#input {
-  border-top: 1px solid #3a0a5c;
-  padding: 15px;
+#hint {
+  position: fixed;
+  bottom: 20px;
+  left: 40px;
+  opacity: 0.4;
+  pointer-events: none;
 }
 
-#text {
-  width: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #c77dff;
-  font-size: 25px;
-  font-family: monospace;
+/* мигающий курсор эффект */
+@keyframes blink {
+  50% { opacity: 0; }
 }
