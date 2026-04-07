@@ -4,7 +4,7 @@ export default {
     const KEY = "home";
 
     // ----------------------
-    // HTML (без KV!)
+    // FRONTEND (без KV)
     // ----------------------
     if (url.pathname === "/") {
       return new Response(`<!doctype html>
@@ -12,27 +12,25 @@ export default {
 <head>
 <meta charset="utf-8">
 <title>mod</title>
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+
 <div id="app" contenteditable="true"></div>
 
 <script>
-let app = document.getElementById("app");
+const app = document.getElementById("app");
 
 async function load() {
   const res = await fetch("/doc/home");
   app.innerText = await res.text();
 }
-
 load();
 
-// простой realtime autosave
-let timeout;
-
+let t;
 app.addEventListener("input", () => {
-  clearTimeout(timeout);
-  timeout = setTimeout(async () => {
+  clearTimeout(t);
+  t = setTimeout(async () => {
     await fetch("/doc/home", {
       method: "POST",
       body: app.innerText
@@ -48,9 +46,9 @@ app.addEventListener("input", () => {
     }
 
     // ----------------------
-    // CSS (тоже без KV)
+    // CSS (из файла репо или fallback)
     // ----------------------
-    if (url.pathname === "/style.css") {
+    if (url.pathname === "/styles.css") {
       return new Response(`
         body {
           margin: 0;
@@ -72,15 +70,14 @@ app.addEventListener("input", () => {
     }
 
     // ----------------------
-    // GET DOC
+    // GET
     // ----------------------
     if (url.pathname === "/doc/home" && request.method === "GET") {
-      const data = await env.DOC.get(KEY);
-      return new Response(data || "");
+      return new Response(await env.DOC.get(KEY) || "");
     }
 
     // ----------------------
-    // SAVE DOC
+    // POST
     // ----------------------
     if (url.pathname === "/doc/home" && request.method === "POST") {
       const text = await request.text();
