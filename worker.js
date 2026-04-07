@@ -13,9 +13,6 @@ export default {
 <meta charset="utf-8">
 <title>Mod</title>
 <link rel="stylesheet" href="/styles.css">
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
-  <circle cx='32' cy='32' r='14' fill='#c77dff'/>
-</svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -51,7 +48,7 @@ app.addEventListener("input", () => {
   }, 200);
 });
 </script>
-
+<script src="/autofmt.js" defer></script>
 </body>
 </html>`, {
         headers: { "Content-Type": "text/html; charset=utf-8" }
@@ -67,7 +64,7 @@ app.addEventListener("input", () => {
           margin: 0;
           background: #0b0b10;
           color: #b08cff;
-          font-family: monospace;
+          font-family: "IBM Plex Mono", monospace;
           font-size: 22px;
         }
 

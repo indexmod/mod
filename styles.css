@@ -2,7 +2,7 @@ body {
   margin: 0;
   background: #05010a;
   color: #c77dff;
-  font-family: monospace;
+  font-family: "IBM Plex Mono", monospace;
   font: 'IBM Plex Mono'
   font-size: 24px;
 }
@@ -19,4 +19,8 @@ body {
   word-break: break-word;
 
   caret-color: #c77dff;
+}
+
+.paren {
+  color: #ff4d4d;
 }
