@@ -7,15 +7,9 @@ export default {
       "Access-Control-Allow-Origin": "*"
     };
 
-    // ROOT
-    if (url.pathname === "/") {
-      return new Response("MOD CHAT ONLINE", { headers });
-    }
-
-    // GET MESSAGES
+    // GET CHAT LOG
     if (url.pathname === "/messages") {
-      const data = await env.CHAT.get("log") || "empty";
-      return new Response(data, { headers });
+      return new Response(await env.CHAT.get("log") || "", { headers });
     }
 
     // SEND MESSAGE
@@ -29,6 +23,6 @@ export default {
       return new Response("ok", { headers });
     }
 
-    return new Response("not found", { status: 404, headers });
+    return new Response("not found", { status: 404 });
   }
 };

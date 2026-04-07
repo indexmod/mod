@@ -1,81 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>mod</title>
+<meta charset="UTF-8" />
+<title>MOD CHAT</title>
 
 <style>
 body {
   margin: 0;
-  background: black;
-  color: #00ff00;
+  background: #0b0014;
+  color: #c77dff;
   font-family: monospace;
-  padding: 10px;
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 #chat {
-  height: 90vh;
+  flex: 1;
+  padding: 20px;
   overflow-y: auto;
   white-space: pre-wrap;
 }
 
-input {
-  width: 100%;
-  background: black;
-  color: #00ff00;
+#input {
+  border-top: 1px solid #3a0a5c;
+  padding: 15px;
+  display: flex;
+}
+
+#text {
+  flex: 1;
+  background: transparent;
   border: none;
   outline: none;
+  color: #c77dff;
+  font-size: 24px;
   font-family: monospace;
+}
+
+.cursor::after {
+  content: "▍";
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
 }
 </style>
 </head>
+
 <body>
 
 <div id="chat"></div>
-<input id="input" placeholder="> type message..." autofocus />
+
+<div id="input">
+  <div class="cursor"></div>
+  <input id="text" placeholder="Привет... напиши сообщение" autofocus />
+</div>
 
 <script>
-const API = "https://mod.indexmod.press";
-
 const chat = document.getElementById("chat");
-const input = document.getElementById("input");
+const input = document.getElementById("text");
 
-let lastText = "";
-
-// загрузка чата
 async function load() {
-  const res = await fetch(API + "/messages");
-  const text = await res.text();
-
-  if (text !== lastText) {
-    chat.textContent = text;
-    chat.scrollTop = chat.scrollHeight;
-    lastText = text;
-  }
+  const res = await fetch("/messages");
+  chat.textContent = await res.text();
+  chat.scrollTop = chat.scrollHeight;
 }
 
-// отправка
-input.addEventListener("keydown", async (e) => {
+async function send(msg) {
+  await fetch("/send", {
+    method: "POST",
+    body: msg
+  });
+  input.value = "";
+  load();
+}
+
+input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    const msg = input.value.trim();
-    if (!msg) return;
-
-    const time = new Date().toLocaleTimeString().slice(0,5);
-
-    const line = `[${time}] ${msg}`;
-
-    await fetch(API + "/send", {
-      method: "POST",
-      body: line
-    });
-
-    input.value = "";
-    load();
+    send(input.value);
   }
 });
 
-// автообновление
-setInterval(load, 1000);
+// live update
+setInterval(load, 1200);
 load();
 </script>
 
