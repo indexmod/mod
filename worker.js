@@ -2,25 +2,39 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    const headers = {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Access-Control-Allow-Origin": "*"
-    };
+    // 🔥 GET CHAT PAGE
+    if (url.pathname === "/") {
+      const html = await env.ASSETS.get("index.html");
 
-    // GET CHAT LOG
-    if (url.pathname === "/messages") {
-      return new Response(await env.CHAT.get("log") || "", { headers });
+      return new Response(html, {
+        headers: { "Content-Type": "text/html; charset=utf-8" }
+      });
     }
 
-    // SEND MESSAGE
+    // 🎨 CSS FILE
+    if (url.pathname === "/style.css") {
+      const css = await env.ASSETS.get("style.css");
+
+      return new Response(css, {
+        headers: { "Content-Type": "text/css" }
+      });
+    }
+
+    // 📜 GET MESSAGES
+    if (url.pathname === "/messages") {
+      return new Response(await env.CHAT.get("log") || "", {
+        headers: { "Content-Type": "text/plain; charset=utf-8" }
+      });
+    }
+
+    // ✍️ SEND MESSAGE
     if (url.pathname === "/send") {
       const text = await request.text();
       const old = await env.CHAT.get("log") || "";
 
-      const updated = old + text + "\n";
-      await env.CHAT.put("log", updated);
+      await env.CHAT.put("log", old + text + "\n");
 
-      return new Response("ok", { headers });
+      return new Response("ok");
     }
 
     return new Response("not found", { status: 404 });

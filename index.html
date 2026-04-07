@@ -1,53 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8" />
 <title>MOD CHAT</title>
 
-<style>
-body {
-  margin: 0;
-  background: #0b0014;
-  color: #c77dff;
-  font-family: monospace;
-  font-size: 24px;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
-#chat {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-  white-space: pre-wrap;
-}
-
-#input {
-  border-top: 1px solid #3a0a5c;
-  padding: 15px;
-  display: flex;
-}
-
-#text {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #c77dff;
-  font-size: 24px;
-  font-family: monospace;
-}
-
-.cursor::after {
-  content: "▍";
-  animation: blink 1s infinite;
-}
-
-@keyframes blink {
-  50% { opacity: 0; }
-}
-</style>
+<link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
@@ -55,7 +12,6 @@ body {
 <div id="chat"></div>
 
 <div id="input">
-  <div class="cursor"></div>
   <input id="text" placeholder="Привет... напиши сообщение" autofocus />
 </div>
 
@@ -80,11 +36,10 @@ async function send(msg) {
 
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    send(input.value);
+    if (input.value.trim()) send(input.value);
   }
 });
 
-// live update
 setInterval(load, 1200);
 load();
 </script>
