@@ -2,9 +2,6 @@ name = "mod"
 main = "worker.js"
 compatibility_date = "2026-04-07"
 
-kv_namespaces = [
-  {
-    binding = "DOC",
-    id = "3226a6231b634603a03ff01472116809"
-  }
-]
+[[kv_namespaces]]
+binding = "DOC"
+id = "3226a6231b634603a03ff01472116809"
