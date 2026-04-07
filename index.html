@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Mod</title>
-<link rel="icon" type="image/svg+xml"
-href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='14' fill='%23a855f7'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -20,6 +22,50 @@ href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 
 </head>
 
 <body>
+
+  <div style="
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 150px;
+  z-index: 9999;
+  pointer-events: none;
+">
+
+<svg viewBox="0 0 100 100" width="150" height="150">
+  <style>
+    .pulse {
+      transform-origin: 50% 50%;
+      animation: pulseAnim 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseAnim {
+      0% {
+        transform: scale(1);
+        opacity: 0.85;
+      }
+      50% {
+        transform: scale(1.08);
+        opacity: 0.6;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0.85;
+      }
+    }
+  </style>
+
+  <circle class="pulse"
+    cx="50"
+    cy="50"
+    r="28"
+    fill="#a855f7"
+  />
+</svg>
+
+</div>
 
 <div id="editor" contenteditable="true" spellcheck="false"></div>
 
