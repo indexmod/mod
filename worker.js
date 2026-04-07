@@ -13,6 +13,19 @@ export default {
 <meta charset="utf-8">
 <title>Mod</title>
 <link rel="stylesheet" href="/styles.css">
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
+  <circle cx='32' cy='32' r='14' fill='#c77dff'/>
+</svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: "IBM Plex Mono", monospace;
+  }
+</style>
 </head>
 <body>
 

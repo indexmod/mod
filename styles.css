@@ -3,7 +3,8 @@ body {
   background: #05010a;
   color: #c77dff;
   font-family: monospace;
-  font-size: 22px;
+  font: 'IBM Plex Mono'
+  font-size: 24px;
 }
 
 #editor {
