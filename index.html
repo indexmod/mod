@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>mod</title>
+
+<style>
+body {
+  margin: 0;
+  background: black;
+  color: #00ff00;
+  font-family: monospace;
+  padding: 10px;
+}
+
+#chat {
+  height: 90vh;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+input {
+  width: 100%;
+  background: black;
+  color: #00ff00;
+  border: none;
+  outline: none;
+  font-family: monospace;
+}
+</style>
+</head>
+<body>
+
+<div id="chat"></div>
+<input id="input" placeholder="> type message..." autofocus />
+
+<script>
+const API = "https://mod.indexmod.press";
+
+const chat = document.getElementById("chat");
+const input = document.getElementById("input");
+
+let lastText = "";
+
+// загрузка чата
+async function load() {
+  const res = await fetch(API + "/messages");
+  const text = await res.text();
+
+  if (text !== lastText) {
+    chat.textContent = text;
+    chat.scrollTop = chat.scrollHeight;
+    lastText = text;
+  }
+}
+
+// отправка
+input.addEventListener("keydown", async (e) => {
+  if (e.key === "Enter") {
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    const time = new Date().toLocaleTimeString().slice(0,5);
+
+    const line = `[${time}] ${msg}`;
+
+    await fetch(API + "/send", {
+      method: "POST",
+      body: line
+    });
+
+    input.value = "";
+    load();
+  }
+});
+
+// автообновление
+setInterval(load, 1000);
+load();
+</script>
+
+</body>
+</html>
