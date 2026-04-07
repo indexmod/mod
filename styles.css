@@ -6,20 +6,15 @@ body {
   font-size: 22px;
 }
 
-/* ВАЖНО: это убирает все рамки и делает как терминал */
 #editor {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
+  inset: 0;
   padding: 40px;
 
   outline: none;
   border: none;
 
-  white-space: pre-wrap;   /* 🔥 фикс переносов */
+  white-space: pre-wrap;
   word-break: break-word;
 
   caret-color: #c77dff;

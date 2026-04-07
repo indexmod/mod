@@ -9,42 +9,33 @@
 
 <body>
 
-<div id="editor" contenteditable="true"></div>
+<div id="editor" contenteditable="true" spellcheck="false"></div>
 
 <script>
-let path = "home";
 const editor = document.getElementById("editor");
+const KEY = "home";
 
-// --------------------
-// LOAD (как TEXT)
-// --------------------
+// LOAD
 async function load() {
-  const res = await fetch("/api/page/" + path);
+  const res = await fetch("/doc/" + KEY);
   const text = await res.text();
-
-  editor.innerText = text || "";
+  editor.innerText = text;
 }
 
-// --------------------
-// SAVE (TEXT ONLY)
-// --------------------
+// SAVE
 let t;
-
 editor.addEventListener("input", () => {
   clearTimeout(t);
-
   t = setTimeout(async () => {
-    await fetch("/api/page/" + path, {
+    await fetch("/doc/" + KEY, {
       method: "POST",
       body: editor.innerText
     });
-  }, 250);
+  }, 200);
 });
 
-// --------------------
 // LIVE SYNC
-// --------------------
-setInterval(load, 1200);
+setInterval(load, 1500);
 
 load();
 </script>
