@@ -2,57 +2,51 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>IndexMod Live</title>
+<title>IndexMod</title>
 
 <link rel="stylesheet" href="/style.css">
-
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <body>
 
-<img src="/logo.png" class="logo">
-
-<div class="main">
-  <div id="editor" contenteditable="true" class="editor"></div>
-</div>
-
-<div id="status"></div>
+<div id="editor" contenteditable="true"></div>
 
 <script>
 let path = "home";
-
 const editor = document.getElementById("editor");
-const status = document.getElementById("status");
 
-// LOAD
+// --------------------
+// LOAD (как TEXT)
+// --------------------
 async function load() {
   const res = await fetch("/api/page/" + path);
   const text = await res.text();
 
-  editor.innerHTML = text || "<h1>Start writing...</h1>";
+  editor.innerText = text || "";
 }
 
-load();
-
-// SAVE (debounced)
+// --------------------
+// SAVE (TEXT ONLY)
+// --------------------
 let t;
+
 editor.addEventListener("input", () => {
   clearTimeout(t);
 
   t = setTimeout(async () => {
     await fetch("/api/page/" + path, {
       method: "POST",
-      body: editor.innerHTML
+      body: editor.innerText
     });
-
-    status.innerText = "saved";
-    setTimeout(() => status.innerText = "", 500);
-  }, 300);
+  }, 250);
 });
 
+// --------------------
 // LIVE SYNC
+// --------------------
 setInterval(load, 1200);
+
+load();
 </script>
 
 </body>
