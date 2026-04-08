@@ -27,6 +27,13 @@ href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 
 <meta property="og:site_name" content="Mod">
 <meta property="og:locale" content="ru_RU">
 
+<!-- Twitter / Telegram -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mod">
+<meta name="twitter:description" content="Страница меняется в реальном времени. Коллективное редактирование.">
+<meta name="twitter:image" content="https://mod.indexmod.press/telegram-preview.png">
+<meta name="twitter:url" content="https://mod.indexmod.press">
+
 <link rel="stylesheet" href="/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
