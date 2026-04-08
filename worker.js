@@ -86,7 +86,7 @@ app.addEventListener("input", () => {
           background: #0b0b10;
           color: #b08cff;
           font-family: "IBM Plex Mono", monospace;
-          font-size: 22px;
+          font-size: 30px;
         }
 
         #app {
