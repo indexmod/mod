@@ -19,11 +19,7 @@ href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 
 <meta property="og:url" content="https://mod.indexmod.press">
 <meta property="og:title" content="Mod">
 <meta property="og:description" content="Страница меняется в реальном времени. Коллективное редактирование.">
-<!-- Telegram (ставим ПЕРВЫМ) -->
 <meta property="og:image" content="https://mod.indexmod.press/telegram-preview.png">
-
-<!-- Facebook (вторым) -->
-<meta property="og:image" content="https://indexmod.press/logo.png">
 <!-- Дополнительно -->
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
