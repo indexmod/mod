@@ -19,7 +19,7 @@ href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 
 <meta property="og:url" content="https://mod.indexmod.press">
 <meta property="og:title" content="Mod">
 <meta property="og:description" content="Страница меняется в реальном времени. Коллективное редактирование.">
-<meta property="og:image" content="https://mod.indexmod.press/telegram-preview.png">
+<meta property="og:image" content="https://indexmod.press/telegram-preview.png">
 <!-- Дополнительно -->
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -30,7 +30,7 @@ href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mod">
 <meta name="twitter:description" content="Страница меняется в реальном времени. Коллективное редактирование.">
-<meta name="twitter:image" content="https://mod.indexmod.press/telegram-preview.png">
+<meta name="twitter:image" content="https://indexmod.press/telegram-preview.png">
 <meta name="twitter:url" content="https://mod.indexmod.press">
 
 <link rel="stylesheet" href="/styles.css">
