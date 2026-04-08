@@ -14,6 +14,19 @@ export default {
 <title>Mod</title>
 <link rel="icon" type="image/svg+xml"
 href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='14' fill='%23a855f7'/%3E%3C/svg%3E">
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://example.com/test-page">
+<meta property="og:title" content="IndexMod — живая энциклопедия">
+<meta property="og:description" content="Страница, которая меняется в реальном времени. Коллективное редактирование без границ.">
+<meta property="og:image" content="https://placekitten.com/1200/630">
+
+<!-- Дополнительно -->
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="IndexMod">
+<meta property="og:locale" content="ru_RU">
+
 <link rel="stylesheet" href="/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
